@@ -2,8 +2,28 @@
 #include <fstream>
 #include <iostream>
 
+template<class T>
+Matrix<T>::Matrix() {
+    (*this).cont = 0;
+    (*this).n = 2;
+    (*this).m = 2;
+    (*this).matrix = new T*[n];
+    for(int i=0; i<n; i++) {
+        (*this).matrix[i] = new T[m];
+    }
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<m; j++) {
+            (*this).matrix[i][j] = 0; 
+        }
+    }
+}
+template Matrix<int>::Matrix();
+template Matrix<float>::Matrix();
+template Matrix<double>::Matrix();
+
 template <class T>
 Matrix<T>::Matrix(int n, int m, int f) {
+    (*this).cont = 0;
     int flag = 0;
     (*this).n = n;
     (*this).m = m;
@@ -37,6 +57,7 @@ template Matrix<double>::Matrix(int, int, int);
 
 template <class T>
 Matrix<T>::Matrix(char* file_input) {
+    (*this).cont = 0;
     std::fstream in;
     in.open(file_input, std::ios::in);
     in >> (*this).n;
@@ -58,14 +79,30 @@ template Matrix<double>::Matrix(char*);
 
 template <class T>
 Matrix<T>::~Matrix() {
-    for(int i=0; i<m; i++) {
-        delete[] matrix[i];
+    if((*this).cont == 0) {
+        for(int i=0; i<n; i++) {
+            delete[] (*this).matrix[i];
+            (*this).cont = 1;
+        }
+        delete[] (*this).matrix; 
     }
-    delete[] matrix;
+    else {
+        std::cout << "L'oggetto è già stato eliminato! Non si può eliminare nuovamente!" << std::endl;
+    }
 }
 template Matrix<int>::~Matrix();
 template Matrix<float>::~Matrix();
 template Matrix<double>::~Matrix();
+
+// template <class T>
+// Matrix<T>::Matrix(Matrix& copy_matrix) {
+//     copy_matrix.n = (*this).n;
+//     copy_matrix.m = (*this).m;
+//     copy_matrix.matrix = matrix;
+// }
+// template Matrix<int>::Matrix(Matrix& matrix);
+// template Matrix<float>::Matrix(Matrix& matrix);
+// template Matrix<double>::Matrix(Matrix& matrix);
 
 template <class T>
 void Matrix<T>::read_matrix() {
@@ -81,3 +118,52 @@ void Matrix<T>::read_matrix() {
 template void Matrix<int>::read_matrix();
 template void Matrix<float>::read_matrix();
 template void Matrix<double>::read_matrix();
+
+template <class T>
+void Matrix<T>::read_matrix_F(char* file_output) {
+    std::fstream out;
+    out.open(file_output, std::ios::app);
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<m; j++) {
+            out << (*this).matrix[i][j] << " ";
+        }
+        out << std::endl;
+    }
+    out << std::endl;
+    out.close();
+}
+
+template void Matrix<int>::read_matrix_F(char*);
+template void Matrix<float>::read_matrix_F(char*);
+template void Matrix<double>::read_matrix_F(char*);
+
+template <class T>
+int Matrix<T>::set(int a, int b, T x) {
+    if(a<(*this).n && b<(*this).m) {
+        (*this).matrix[a][b] = x;
+        return 0;
+    }
+    else{
+        std::cout << "La dimensione specificata non è presente nella matrice!" << std::endl;
+        return -1;
+    }
+}
+
+template int Matrix<int>::set(int, int, int);
+template int Matrix<float>::set(int, int, float);
+template int Matrix<double>::set(int, int, double);
+
+template <class T>
+T Matrix<T>::get(int a, int b) {
+    if(a<(*this).n && b<(*this).m) {
+        return (*this).matrix[a][b]; 
+    }
+    else {
+        std::cout << "La dimensione specificata non è presente nella matrice!" << std::endl;
+        return -1;
+    }
+}
+
+template int Matrix<int>::get(int, int);
+template float Matrix<float>::get(int, int);
+template double Matrix<double>::get(int, int);
