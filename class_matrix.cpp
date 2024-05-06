@@ -178,3 +178,42 @@ T Matrix<T>::get(int a, int b) {
 template int Matrix<int>::get(int, int);
 template float Matrix<float>::get(int, int);
 template double Matrix<double>::get(int, int);
+
+// template <class T>
+// void Matrix<T>::operator!() {
+//     T c = 0;
+//     for(int i=0; i<n; i++) {
+//         for(int j=0; j<m; j++) {
+
+//         }
+//     }
+    
+//     c = (*this).m;
+//     (*this).m = (*this).n;
+//     (*this).n = c;
+// }
+
+// template void Matrix<int>::operator!();
+// template void Matrix<float>::operator!();
+// template void Matrix<double>::operator!();  
+
+// template <class T>
+// Matrix Matrix<T>::operator+(const Matrix& a, const Matrix& b) {
+//     Matrix res(a.n, a.m);
+//     if(a.n == b.n && a.m == b.m) {
+//         for(int i=0; i<n; i++) {
+//             for(int j=0; j<m; j++) {
+//                 res[i][j] = a[i][j] + b[i][j];
+//             }
+//         }
+//         return res;
+//     }
+//     else {
+//         return res;
+//     }
+     
+// }
+
+// template Matrix Matrix<int>::operator+(const Matrix& a, const Matrix& b);
+// template Matrix Matrix<float>::operator+(const Matrix& a, const Matrix& b);
+// template Matrix Matrix<double>::operator+(const Matrix& a, const Matrix& b);

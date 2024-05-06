@@ -21,7 +21,8 @@ class Matrix{
     void read_matrix_F(char* file_output);
     int set(int a, int b, T x);
     T get(int a, int b);
-
+    //void operator!();
+    //Matrix operator+(const Matrix& a, const Matrix& b);
 };
 
 #endif
