@@ -14,3 +14,6 @@ run:
 
 clear: 
 	rm *.out
+
+clear_out:
+	rm output.txt

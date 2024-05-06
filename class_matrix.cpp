@@ -1,6 +1,9 @@
 #include "class_matrix.h"
 #include <fstream>
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 template<class T>
 Matrix<T>::Matrix() {
@@ -35,6 +38,14 @@ Matrix<T>::Matrix(int n, int m, int f) {
         for(int i=0; i<n; i++) {
             for(int j=0; j<m; j++) {
                (*this).matrix[i][j] = 1; 
+            }
+        }
+    }
+    else if(f==1) {
+        srand(time(0));
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                (*this).matrix[i][j] = rand()%101;
             }
         }
     }
